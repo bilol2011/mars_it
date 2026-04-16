@@ -54,6 +54,9 @@ class GroupCreate(BaseModel):
     name: str = Field(min_length=2, max_length=80)
     direction_id: int
     schedule: str | None = None
+    lesson_time: str | None = None
+    classroom: str | None = None
+    duration_months: int | None = None
     starts_on: date | None = None
     teacher_id: int | None = None
 
@@ -62,6 +65,9 @@ class GroupUpdate(BaseModel):
     name: str | None = Field(default=None, min_length=2, max_length=80)
     direction_id: int | None = None
     schedule: str | None = None
+    lesson_time: str | None = None
+    classroom: str | None = None
+    duration_months: int | None = None
     starts_on: date | None = None
     teacher_id: int | None = None
 
@@ -70,6 +76,9 @@ class GroupRead(BaseModel):
     id: int
     name: str
     schedule: str | None = None
+    lesson_time: str | None = None
+    classroom: str | None = None
+    duration_months: int | None = None
     starts_on: date | None = None
     direction: DirectionRead
     teacher: TeacherSummary | None = None

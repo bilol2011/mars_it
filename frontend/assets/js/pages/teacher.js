@@ -20,7 +20,8 @@ export async function renderTeacher(root, state) {
           <div>
             <span class="panel-label">Tanlangan guruh</span>
             <h3>${escapeHtml(detail.group.name)}</h3>
-            <p class="subtle">${escapeHtml(detail.group.direction.name)} - ${escapeHtml(detail.group.schedule || 'Jadval korsatilmagan')}</p>
+            <p class="subtle">${escapeHtml(detail.group.direction.name)} - ${escapeHtml(detail.group.schedule || 'Dars kunlari belgilanmagan')}</p>
+            <p class="subtle">${escapeHtml(detail.group.lesson_time || 'Dars vaqti yo‘q')} | ${escapeHtml(detail.group.classroom || 'Xona yo‘q')} | ${detail.group.duration_months ? `${detail.group.duration_months} oy` : 'Davomiylik yo‘q'}</p>
             <div class="badge blue">Coin: ${detail.coin_usage.used} / ${detail.coin_usage.limit}</div>
           </div>
           <div class="list">
@@ -61,6 +62,15 @@ export async function renderTeacher(root, state) {
             <button class="btn btn-secondary">Homework yaratish</button>
           </form>
         </article>
+      </section>
+      <section class="card stack" style="margin-top:18px;">
+        <h3>Platforma funksiyalari</h3>
+        <div class="list">
+          <div class="item"><h4>Progress tracking</h4><p>Studentlar davomat, baho va homework orqali kuzatiladi.</p></div>
+          <div class="item"><h4>Uyga vazifa</h4><p>Teacherlar topilgan topshiriqlarni yaratib, studentlar ularni yuborishi mumkin.</p></div>
+          <div class="item"><h4>Coin/reward tizimi</h4><p>Studentlarga rag'bat berish uchun coinlarni taqsimlash mumkin.</p></div>
+          <div class="item"><h4>Oylik obuna va premium kurslar</h4><p>Talabalar uchun kurslarni premium rejimda taqdim etish imkoniyati.</p></div>
+        </div>
       </section>
       <section class="grid grid-2" style="margin-top:18px;">
         <article class="card">

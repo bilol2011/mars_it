@@ -17,11 +17,20 @@ export async function renderStudent(root, state) {
         <article class="card stat-card"><strong>${dashboard.average_mark}</strong><span>O'rtacha baho</span></article>
         <article class="card stat-card"><strong>${dashboard.total_coins}</strong><span>Jami coin</span></article>
       </section>
+      <section class="card stack" style="margin-top:18px;">
+        <h3>Mening progress funksiyalari</h3>
+        <div class="list">
+          <div class="item"><h4>Progress tracking</h4><p>Davomat va baholar orqali o‘quvchilarning rivoji nazorat qilinadi.</p></div>
+          <div class="item"><h4>Uyga vazifa</h4><p>Homeworklar va topshiriqlarni ko‘rib, natijalarni yuborishingiz mumkin.</p></div>
+          <div class="item"><h4>Coin/reward</h4><p>Faollik va yaxshi xislatlar uchun coinlar beriladi.</p></div>
+          <div class="item"><h4>Premium kurslar</h4><p>Oylik obuna va premium talim imkoniyatlariga tayyorlaning.</p></div>
+        </div>
+      </section>
       <section class="grid grid-2" style="margin-top:18px;">
         <article class="card">
           <h3>Guruhlarim</h3>
           <div class="list">
-            ${dashboard.groups.map((group) => `<div class="item"><h4>${escapeHtml(group.name)}</h4><p>${escapeHtml(group.direction.name)} � ${escapeHtml(group.schedule || 'Jadval ko`rsatilmagan')}</p></div>`).join('') || '<div class="empty">Guruh topilmadi</div>'}
+            ${dashboard.groups.map((group) => `<div class="item"><h4>${escapeHtml(group.name)}</h4><p>${escapeHtml(group.direction.name)} · ${escapeHtml(group.schedule || 'Jadval ko`rsatilmagan')}</p><p>${escapeHtml(group.lesson_time || 'Vaqt yo`q')} · ${escapeHtml(group.classroom || 'Xona yo`q')} · ${group.duration_months ? `${group.duration_months} oy` : 'Davomiylik yo`q'}</p></div>`).join('') || '<div class="empty">Guruh topilmadi</div>'}
           </div>
         </article>
         <article class="card">
@@ -41,7 +50,7 @@ export async function renderStudent(root, state) {
             <div class="item">
               <h4>${escapeHtml(homework.title)}</h4>
               <p>${escapeHtml(homework.description)}</p>
-              <p>Deadline: ${homework.due_date} � Max ball: ${homework.max_score}</p>
+              <p>Deadline: ${homework.due_date} � Max ball: ${homework.max_score}</p>
               <form class="form-grid" data-homework-form="${homework.id}">
                 <textarea name="content" placeholder="Javobingizni yozing" required></textarea>
                 <button class="btn btn-primary">Yuborish</button>

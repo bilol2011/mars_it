@@ -56,10 +56,10 @@ def seed_database(db: Session) -> None:
     db.flush()
 
     groups = [
-        Group(name="Frontend N1", direction_id=directions[0].id, teacher_id=teacher_profiles[0].id, schedule="Mon/Wed/Fri 10:00", starts_on=date.today() - timedelta(days=21)),
-        Group(name="Backend N1", direction_id=directions[1].id, teacher_id=teacher_profiles[1].id, schedule="Tue/Thu/Sat 14:00", starts_on=date.today() - timedelta(days=30)),
-        Group(name="Design N1", direction_id=directions[2].id, teacher_id=teacher_profiles[2].id, schedule="Mon/Wed 16:00", starts_on=date.today() - timedelta(days=14)),
-        Group(name="Beginner N1", direction_id=directions[3].id, teacher_id=teacher_profiles[0].id, schedule="Sat/Sun 09:00", starts_on=date.today() - timedelta(days=10)),
+        Group(name="Frontend N1", direction_id=directions[0].id, teacher_id=teacher_profiles[0].id, schedule="Mon/Wed/Fri", lesson_time="10:00 - 12:00", classroom="A4", duration_months=3, starts_on=date.today() - timedelta(days=21)),
+        Group(name="Backend N1", direction_id=directions[1].id, teacher_id=teacher_profiles[1].id, schedule="Tue/Thu/Sat", lesson_time="14:00 - 16:00", classroom="B2", duration_months=4, starts_on=date.today() - timedelta(days=30)),
+        Group(name="Design N1", direction_id=directions[2].id, teacher_id=teacher_profiles[2].id, schedule="Mon/Wed", lesson_time="16:00 - 18:00", classroom="C1", duration_months=2, starts_on=date.today() - timedelta(days=14)),
+        Group(name="Beginner N1", direction_id=directions[3].id, teacher_id=teacher_profiles[0].id, schedule="Sat/Sun", lesson_time="09:00 - 11:00", classroom="D3", duration_months=1, starts_on=date.today() - timedelta(days=10)),
     ]
     db.add_all(groups)
     db.flush()

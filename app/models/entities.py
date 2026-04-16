@@ -86,6 +86,9 @@ class Group(TimestampMixin, Base):
     direction_id: Mapped[int] = mapped_column(ForeignKey("directions.id"))
     teacher_id: Mapped[int | None] = mapped_column(ForeignKey("teacher_profiles.id"), nullable=True)
     schedule: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    lesson_time: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    classroom: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    duration_months: Mapped[int | None] = mapped_column(Integer, nullable=True)
     starts_on: Mapped[date | None] = mapped_column(Date, nullable=True)
 
     direction: Mapped[Direction] = relationship(back_populates="groups")

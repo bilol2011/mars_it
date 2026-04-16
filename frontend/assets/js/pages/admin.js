@@ -59,7 +59,10 @@ export async function renderAdmin(root, state) {
             <option value="">Teacher biriktirish</option>
             ${teachers.map((teacher) => `<option value="${teacher.id}">${escapeHtml(teacher.full_name)} - ${escapeHtml(teacher.specialty || '')}</option>`).join('')}
           </select>
-          <input class="input" name="schedule" placeholder="Masalan: Mon/Wed/Fri 18:00" />
+          <input class="input" name="classroom" placeholder="Dars xonasi (masalan: A4)" />
+          <input class="input" name="lesson_time" placeholder="Dars vaqti (masalan: 18:00 - 20:00)" />
+          <input class="input" type="number" name="duration_months" min="1" placeholder="Davomiylik (oy)" />
+          <input class="input" name="schedule" placeholder="Dars kunlari (masalan: Mon/Wed/Fri)" />
           <input class="input" type="date" name="starts_on" />
           <button class="btn btn-primary">Saqlash</button>
         </form>
@@ -68,13 +71,16 @@ export async function renderAdmin(root, state) {
         <h3>Mavjud guruhlar</h3>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Nomi</th><th>Yo'nalish</th><th>Teacher</th><th>Student</th><th>Amal</th></tr></thead>
+            <thead><tr><th>Nomi</th><th>Yo'nalish</th><th>Teacher</th><th>Xona</th><th>Vaqt</th><th>Davom</th><th>Student</th><th>Amal</th></tr></thead>
             <tbody>
               ${groups.map((group) => `
                 <tr>
                   <td>${escapeHtml(group.name)}</td>
                   <td>${escapeHtml(group.direction.name)}</td>
                   <td>${escapeHtml(group.teacher?.full_name || 'Biriktirilmagan')}</td>
+                  <td>${escapeHtml(group.classroom || '-')}</td>
+                  <td>${escapeHtml(group.lesson_time || '-')}</td>
+                  <td>${group.duration_months ? `${group.duration_months} oy` : '-'}</td>
                   <td>${group.student_count}</td>
                   <td class="actions">
                     <button class="btn btn-inline btn-muted" data-action="prefill-group" data-id="${group.id}">Tahrirlash</button>
@@ -163,6 +169,9 @@ export async function renderAdmin(root, state) {
           name: formData.get('name'),
           direction_id: Number(formData.get('direction_id')),
           teacher_id: formData.get('teacher_id') ? Number(formData.get('teacher_id')) : null,
+          classroom: formData.get('classroom') || null,
+          lesson_time: formData.get('lesson_time') || null,
+          duration_months: formData.get('duration_months') ? Number(formData.get('duration_months')) : null,
           schedule: formData.get('schedule') || null,
           starts_on: formData.get('starts_on') || null,
         }, 'Guruh yaratildi');
@@ -204,9 +213,15 @@ export async function renderAdmin(root, state) {
       if (!group) return;
       const name = prompt('Guruh nomi:', group.name);
       if (!name) return;
-      const schedule = prompt('Jadval:', group.schedule || '');
+      const classroom = prompt('Dars xonasi:', group.classroom || '');
+      const lessonTime = prompt('Dars vaqti:', group.lesson_time || '');
+      const duration = prompt('Davomiylik (oy):', group.duration_months ? String(group.duration_months) : '');
+      const schedule = prompt('Dars kunlari:', group.schedule || '');
       await state.safeAction(async () => api.updateGroup(group.id, {
         name,
+        classroom: classroom || null,
+        lesson_time: lessonTime || null,
+        duration_months: duration ? Number(duration) : null,
         schedule: schedule || null,
       }), 'Guruh yangilandi');
     });
