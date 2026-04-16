@@ -22,13 +22,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Database yaratish
-Base.metadata.create_all(bind=engine)
-
-# Seed faqat start paytida
-with SessionLocal() as db:
-    seed_database(db)
-
+@app.on_event("startup")
+def startup():
+    Base.metadata.create_all(bind=engine)
+    with SessionLocal() as db:
+        seed_database(db)
 # API routes
 app.include_router(router)
 
